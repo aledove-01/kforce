@@ -32,6 +32,13 @@ namespace kforceApp.Controllers
         [HttpPut()]
         public async Task<IActionResult> UpdateCar([FromBody] Car car)
         {
+
+            if (string.IsNullOrWhiteSpace(car.Make) || string.IsNullOrWhiteSpace(car.Model) || car.Price <= 0 || car.Year <= 0)
+            {
+                ModelState.AddModelError("MakeModelPriceYear", "Make,Model,Price and Year are required");
+                return BadRequest(ModelState);
+            }
+
             var result = await _carRepo.UpdateAsync(car);
 
             if (result.Success)
@@ -58,6 +65,12 @@ namespace kforceApp.Controllers
         [HttpPost]
         public async Task<ActionResult<Car>> AddCar([FromBody] Car car)
         {
+            if (string.IsNullOrWhiteSpace(car.Make) || string.IsNullOrWhiteSpace(car.Model) || car.Price <= 0 || car.Year <= 0)
+            {
+                ModelState.AddModelError("MakeModelPriceYear", "Make,Model,Price and Year are required");
+                return BadRequest(ModelState);
+            }
+
             var result = await _carRepo.AddAsync(car);
 
             if (result.Success)

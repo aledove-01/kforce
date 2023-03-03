@@ -7,64 +7,110 @@
     <title>Cars List</title>
 </head>
 <body>
-    <h1>Cars List</h1>
+    
+    <div class="container">
+        <h1>Guess Car Price</h1>
+        <div id="selectedCar"></div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Make</th>
-                <th>Model</th>
-                <th>Year</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var car in Model)
-            {
+        <form method="get" action="/car/checkprice" class="form-inline">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="price" class="sr-only">Enter price and guess the price of this car:</label>
+                <input type="text" id="price" name="price" autofocus maxlength="15" class="form-control mb-2" />
+                <button type="submit" class="btn btn-primary mb-2">Check Price</button>
+            </div>
+           
+        </form>
+
+        <div id="message" style="display: none;"></div>
+
+
+
+        <table class="table table-hover">
+            <thead>
                 <tr>
-                    <td>@car.Make</td>
-                    <td>@car.Model</td>
-                    <td>@car.Year</td>
-                    <td>@car.Price</td>
+                    <th scope="col">Id</th>
+                    <th scope="col">Make</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">Doors</th>
+                    <th scope="col">Color</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var car in Model)
+                {
+                    <tr onclick="clickRow(@car.Id)">
+                        <td>@car.Id</td>
+                        <td>@car.Make</td>
+                        <td>@car.Model</td>
+                        <td>@car.Year</td>
+                        <td>@car.Doors</td>
+                        <td>@car.Color</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
 
     <hr />
 
-    <form method="get" action="/car/checkprice">
-        <label for="price">Enter Price:</label>
-        <input type="text" id="price" name="price" />
 
-        <button type="submit">Check Price</button>
-    </form>
 
-    <div id="message" style="display: none;"></div>
+    <script>
+        const Cars = @Json.Serialize(Model);
+        var SelectedCar = Cars[0];
+        clickRow(Cars[0].id);
 
-    <script>document.querySelector('form').addEventListener('submit', async (event) => {
+        document.querySelector('form').addEventListener('submit', async (event) => {
             event.preventDefault();
 
             const price = document.getElementById('price').value;
 
-            const response = await fetch(`/car/checkprice?id=1&price=${price}&priceEstimated=10000`);
-            if (response.status === 200) {
-                showMessage('Price is OK!', 'green');
-            } else if (response.status === 204) {
-                showMessage('Price is not OK!', 'red');
+            const priceRegex = /^\d+$/;
+            if (!priceRegex.test(price)) {
+                showMessage('Price must be a positive number.', 'alert alert-danger');
+                return;
             }
+
+            fetch(`/car/checkprice?id=${SelectedCar.id}&price=${price}&priceEstimated=5000`)
+                .then(response => response.json())
+                .then(data => {
+                    let message = '';
+                    if (data.car != '') {
+                        message = `Great job, price is OK! The car price is ${data.car.price}.`;
+                        showMessage(message, 'alert alert-success');
+                    } else {
+                        message = 'Price is not OK!';
+                        showMessage(message, 'alert alert-danger');
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         });
 
-        function showMessage(message, color) {
+        function clickRow(id) {
+            
+            SelectedCar = Cars.find(c => c.id === id);
+            console.log(id, SelectedCar);
+            const selectedDiv = document.getElementById('selectedCar');
+            selectedDiv.textContent = 'Gess price for: ' + SelectedCar.make + ' ' + SelectedCar.model + ' ' + SelectedCar.year ;
+            //messageDiv.style.backgroundColor = color;
+            //messageDiv.style.display = 'block';
+            selectedDiv.classList = 'alert alert-primary';
+        }
+        function showMessage(message, styleMessage) {
             const messageDiv = document.getElementById('message');
             messageDiv.textContent = message;
-            messageDiv.style.backgroundColor = color;
+            //messageDiv.style.backgroundColor = color;
             messageDiv.style.display = 'block';
-
+            messageDiv.classList = styleMessage;
             setTimeout(() => {
                 messageDiv.style.display = 'none';
-            }, 20000);
-        }</script>
+            }, 5000);
+        }
+    </script>
 </body>
 </html>
 

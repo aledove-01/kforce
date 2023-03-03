@@ -10,10 +10,12 @@
   <ItemGroup>
     <None Remove="Contexts\" />
     <None Remove="Services\" />
+    <None Remove="Views\Car\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contexts\" />
     <Folder Include="Services\" />
+    <Folder Include="Views\Car\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3" />
