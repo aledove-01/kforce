@@ -29,7 +29,7 @@ namespace kforceApp.Controllers
             return View();
         }
 
-        [HttpPut("{id}")]
+        [HttpPut()]
         public async Task<IActionResult> UpdateCar([FromBody] Car car)
         {
             var result = await _carRepo.UpdateAsync(car);
@@ -42,7 +42,7 @@ namespace kforceApp.Controllers
             return BadRequest(result.ErrorMessage);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete()]
         public async Task<ActionResult<Car>> DeleteCar(int id)
         {
             var result = await _carRepo.DeleteAsync(id);
@@ -68,7 +68,7 @@ namespace kforceApp.Controllers
             return BadRequest(result.ErrorMessage);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet()]
         public async Task<ActionResult<Car>> GetCar(int id)
         {
             var result = await _carRepo.GetByIdAsync(id);
@@ -92,7 +92,7 @@ namespace kforceApp.Controllers
             return BadRequest(result.ErrorMessage);
         }
 
-        [HttpGet("{id}/checkprice")]
+        [HttpGet()]
         public async Task<ActionResult> CheckPrice(int id, int price, int priceEstimated)
         {
             try

@@ -124,7 +124,7 @@ namespace kforceApp.Services
             try
             {
                 var cars = await _context.Cars
-                    .Select(c => new { c.Make, c.Model, c.Year, c.Doors, c.Color, c.Id })
+                    .Select(c => new Car { Make = c.Make, Model = c.Model, Year = c.Year, Doors = c.Doors, Color = c.Color, Id = c.Id })
                     .ToListAsync();
                 return new Result<IEnumerable<Car>>
                 {
