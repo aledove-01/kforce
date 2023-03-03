@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Car>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Cars List</title>
+</head>
+<body>
+    <h1>Cars List</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var car in Model)
+            {
+                <tr>
+                    <td>@car.Make</td>
+                    <td>@car.Model</td>
+                    <td>@car.Year</td>
+                    <td>@car.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <hr />
+
+    <form method="get" action="/car/checkprice">
+        <label for="price">Enter Price:</label>
+        <input type="text" id="price" name="price" />
+
+        <button type="submit">Check Price</button>
+    </form>
+
+    <div id="message" style="display: none;"></div>
+
+    <script>document.querySelector('form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const price = document.getElementById('price').value;
+
+            const response = await fetch(`/car/checkprice?id=1&price=${price}&priceEstimated=10000`);
+            if (response.status === 200) {
+                showMessage('Price is OK!', 'green');
+            } else if (response.status === 204) {
+                showMessage('Price is not OK!', 'red');
+            }
+        });
+
+        function showMessage(message, color) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = message;
+            messageDiv.style.backgroundColor = color;
+            messageDiv.style.display = 'block';
+
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 20000);
+        }</script>
+</body>
+</html>
+
+
+
