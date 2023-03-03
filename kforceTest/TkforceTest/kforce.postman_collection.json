@@ -1,0 +1,268 @@
+{
+	"info": {
+		"_postman_id": "85811e31-234f-46e3-922d-f7128d708f12",
+		"name": "kforce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13334876"
+	},
+	"item": [
+		{
+			"name": "AddCar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Make",
+						"value": "Audi",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Model",
+						"value": "R8",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Year",
+						"value": "2018",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Doors",
+						"value": "2",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Color",
+						"value": "Red",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Price",
+						"value": "79995",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"Make\": \"Toyota\",\n  \"Model\": \"Corolla\",\n  \"Year\": 2022,\n  \"Doors\": 4,\n  \"Color\": \"Gray\",\n  \"Price\": 20000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5090/Car/AddCar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5090",
+					"path": [
+						"Car",
+						"AddCar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Car",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"Make\": \"Toyota\",\n  \"Model\": \"Corolla\",\n  \"Year\": 2021,\n  \"Doors\": 4,\n  \"Color\": \"Gray\",\n  \"Price\": 20000,\n  \"Id\":9\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5090/Car/UpdateCar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5090",
+					"path": [
+						"Car",
+						"UpdateCar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Car",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5090/Car/DeleteCar?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5090",
+					"path": [
+						"Car",
+						"DeleteCar"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Car",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5090/Car/GetCar?id=9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5090",
+					"path": [
+						"Car",
+						"GetCar"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "9"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cars whitOut id's",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5090/Car/GetCar?id=9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5090",
+					"path": [
+						"Car",
+						"GetCar"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "9"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CheckPrice",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5090/Car/CheckPrice?id=9&price=22000&priceEstimated=5000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5090",
+					"path": [
+						"Car",
+						"CheckPrice"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "9"
+						},
+						{
+							"key": "price",
+							"value": "22000"
+						},
+						{
+							"key": "priceEstimated",
+							"value": "5000"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
